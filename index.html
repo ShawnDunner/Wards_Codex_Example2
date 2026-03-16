@@ -1,0 +1,416 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wards Service Centre | Brisbane Mechanic Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep-grape-purple: #3B2B5B;
+      --bright-tangerine: #F78E1E;
+      --cloud-white: #EBEBEB;
+      --dark-charcoal: #333333;
+      --max-width: 1200px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Open Sans", sans-serif; background: var(--cloud-white); color: var(--dark-charcoal); }
+    h1, h2, h3 { font-family: "Oswald", sans-serif; letter-spacing: 0.02em; }
+    a { color: inherit; }
+    .container { width: min(var(--max-width), 92%); margin: 0 auto; }
+    .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+
+    .site-nav { position: sticky; top: 0; z-index: 1000; background: var(--deep-grape-purple); box-shadow: 0 4px 22px rgba(0, 0, 0, 0.28); }
+    .site-nav .container { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; color: var(--cloud-white); text-decoration: none; font-family: "Oswald", sans-serif; letter-spacing: 0.03em; }
+    .brand-name { font-size: 1.2rem; text-transform: uppercase; }
+    .brand-name strong { color: var(--bright-tangerine); }
+    .brand-tagline { font-family: "Caveat", cursive; font-size: 1.45rem; color: var(--cloud-white); margin-left: 8px; transform: translateY(1px); white-space: nowrap; }
+
+    .nav-toggle { display: none; border: 2px solid transparent; border-radius: 6px; background: transparent; color: var(--cloud-white); font-size: 1.8rem; line-height: 1; padding: 6px 10px; cursor: pointer; }
+    .nav-toggle:hover, .nav-toggle:focus-visible { color: var(--bright-tangerine); border-color: var(--bright-tangerine); outline: none; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--cloud-white); text-decoration: none; font-weight: 600; border-bottom: 2px solid transparent; padding-bottom: 4px; transition: color 0.25s ease, border-color 0.25s ease; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--bright-tangerine); }
+    .nav-links a.active { color: var(--bright-tangerine); border-bottom-color: var(--bright-tangerine); }
+
+    .page { display: none; opacity: 0; }
+    .page.active { display: block; animation: pageFade 0.3s ease forwards; }
+    @keyframes pageFade { from { opacity: 0; } to { opacity: 1; } }
+
+    .home { height: calc(100vh - 86px); position: relative; overflow: hidden; background: #0e0e11; }
+    .home video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; transform: scale(1.15); display: block; filter: saturate(1.1) contrast(1.02); }
+    .home-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(12, 8, 20, 0.2), rgba(12, 8, 20, 0.48)); }
+    .hero-logo { position: absolute; top: 16%; left: 50%; width: min(760px, 74vw); transform: translate(-50%, -50%) scale(0.2); opacity: 0; pointer-events: none; z-index: 3; }
+    .hero-logo.logo-reveal { animation: logoReveal 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; }
+    @keyframes logoReveal { from { top: 55%; transform: translate(-50%, -50%) scale(0.18); opacity: 0; } to { top: 16%; transform: translateX(-50%) scale(1); opacity: 1; } }
+
+    .services { background: var(--dark-charcoal); color: var(--cloud-white); }
+    .services-hero, .services-list { padding: 72px 0; }
+    .services h1, .services h2 { color: var(--bright-tangerine); margin-bottom: 18px; }
+    .services-intro { max-width: 760px; }
+    .reviews-wrap { margin-top: 34px; }
+    .review-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 20px; }
+    .review-card { background: var(--deep-grape-purple); border-radius: 12px; padding: 20px; box-shadow: 0 8px 26px rgba(0, 0, 0, 0.2); }
+    .review-top { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; align-items: center; }
+    .review-name { font-weight: 700; }
+    .review-badge { color: var(--bright-tangerine); font-weight: 700; border: 1px solid rgba(247, 142, 30, 0.5); border-radius: 999px; font-size: 0.82rem; padding: 3px 10px; }
+    .stars { color: var(--bright-tangerine); font-size: 1.1rem; margin-bottom: 10px; }
+    .review-card p { font-size: 0.95rem; line-height: 1.45; }
+    .review-btn { display: inline-block; margin-top: 22px; background: var(--bright-tangerine); color: var(--dark-charcoal); text-decoration: none; font-weight: 700; border-radius: 8px; padding: 12px 18px; }
+
+    .services-list { background: var(--dark-charcoal); }
+    .services-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 24px; }
+    .service-card { background: rgba(59, 43, 91, 0.95); border: 1px solid rgba(235, 235, 235, 0.15); border-radius: 12px; padding: 20px; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .service-card:hover, .service-card:focus-within { transform: translateY(-6px); border-color: rgba(247, 142, 30, 0.55); box-shadow: 0 16px 30px rgba(0, 0, 0, 0.28); }
+    .service-icon { width: 44px; height: 44px; margin-bottom: 10px; display: block; color: var(--bright-tangerine); stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .service-card h3 { color: var(--bright-tangerine); font-size: 1.2rem; margin-bottom: 8px; }
+
+    .faq { background: var(--dark-charcoal); color: var(--cloud-white); padding: 72px 0 0; }
+    .faq h1 { color: var(--cloud-white); margin-bottom: 22px; }
+    .faq-list { display: grid; gap: 12px; margin-bottom: 48px; }
+    .faq-item { background: var(--cloud-white); border: 1px solid #d7d7d7; border-radius: 10px; overflow: hidden; }
+    .faq-item summary { list-style: none; position: relative; cursor: pointer; padding: 18px 54px 18px 18px; font-weight: 700; color: var(--dark-charcoal); }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: "+"; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--bright-tangerine); font-size: 1.6rem; font-weight: 700; }
+    .faq-item[open] summary::after { content: "-"; }
+    .faq-answer { padding: 0 18px 18px; color: var(--dark-charcoal); }
+
+    .faq-contact { background: var(--deep-grape-purple); color: var(--cloud-white); padding: 22px 0; }
+    .faq-contact .container { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .faq-contact a { background: var(--bright-tangerine); color: var(--dark-charcoal); text-decoration: none; font-weight: 700; border-radius: 8px; padding: 11px 16px; }
+
+    .book { background: var(--deep-grape-purple); color: var(--cloud-white); padding: 72px 0; }
+    .book .container { max-width: 860px; display: flex; flex-direction: column; align-items: center; }
+    .book h1 { color: var(--bright-tangerine); margin-bottom: 12px; text-align: center; }
+    .book-subheading { color: var(--cloud-white); margin-bottom: 20px; max-width: 760px; text-align: center; }
+
+    .availability-card { width: 100%; max-width: 760px; background: rgba(51, 51, 51, 0.55); border: 1px solid rgba(235, 235, 235, 0.25); border-radius: 12px; padding: 20px; margin-bottom: 22px; }
+    .availability-card h2 { color: var(--bright-tangerine); margin-bottom: 10px; text-align: center; }
+    .availability-card p { text-align: center; margin-bottom: 16px; }
+    .availability-form { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; }
+    .availability-form label { font-weight: 600; display: block; margin-bottom: 6px; text-align: left; }
+    .availability-form input { width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid rgba(235, 235, 235, 0.22); background: var(--dark-charcoal); color: var(--cloud-white); font: inherit; }
+    .availability-form input:focus { border: 2px solid var(--bright-tangerine); outline: none; }
+    .availability-form button, .booking-form button { border: none; border-radius: 8px; background: var(--bright-tangerine); color: var(--dark-charcoal); padding: 12px 16px; font: 700 1rem "Open Sans", sans-serif; cursor: pointer; }
+    .availability-status { margin-top: 12px; min-height: 1.5em; font-weight: 700; text-align: center; color: var(--bright-tangerine); }
+
+    .booking-form { width: 100%; max-width: 760px; display: grid; gap: 14px; }
+    .booking-form label { font-weight: 600; }
+    .booking-form input, .booking-form textarea { width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid rgba(235, 235, 235, 0.22); background: var(--dark-charcoal); color: var(--cloud-white); font: inherit; }
+    .booking-form textarea { min-height: 120px; resize: vertical; }
+    .booking-form input:focus, .booking-form textarea:focus { border: 2px solid var(--bright-tangerine); outline: none; }
+    .form-status { color: var(--bright-tangerine); font-weight: 700; min-height: 1.5em; }
+
+    .site-footer { background: var(--deep-grape-purple); color: var(--cloud-white); border-top: 1px solid rgba(235, 235, 235, 0.15); text-align: center; padding: 26px 0 30px; }
+    .footer-logo { height: 50px; width: auto; margin: 0 auto 10px; display: block; }
+    .tagline { margin-bottom: 5px; }
+    .footer-nav { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+    .footer-nav a { color: var(--cloud-white); text-decoration: none; }
+    .footer-nav a:hover, .footer-nav a:focus-visible { color: var(--bright-tangerine); }
+    .copyright { opacity: 0.9; font-size: 0.92rem; }
+
+    @media (max-width: 768px) {
+      .site-nav .container { min-height: 76px; }
+      .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+      .brand-tagline { display: none; }
+      .nav-menu { position: absolute; top: 100%; left: 0; right: 0; background: var(--deep-grape-purple); border-top: 1px solid rgba(235, 235, 235, 0.2); display: none; }
+      .nav-menu.nav-open { display: block; }
+      .nav-links { flex-direction: column; align-items: flex-start; gap: 14px; padding: 16px 4%; }
+      .home video { transform: scale(1.08); object-position: 52% 56%; }
+      .hero-logo { top: 15%; width: min(620px, 86vw); }
+      .services-hero, .services-list, .faq, .book { padding-top: 54px; }
+      .availability-form { grid-template-columns: 1fr; }
+      .availability-form button, .booking-form button { width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-logo { top: 14%; width: min(500px, 90vw); }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-nav">
+    <div class="container">
+      <a class="brand" href="#home" aria-label="Wards Service Centre home">
+        <span class="brand-name"><strong>WARDS</strong> SERVICE CENTRE</span>
+        <span class="brand-tagline">- We'll get you on the road again</span>
+      </a>
+      <button class="nav-toggle" id="hamburgerBtn" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">☰</button>
+      <nav class="nav-menu" id="navMenu" aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="#home" data-route="home">Home</a></li>
+          <li><a href="#services" data-route="services">Services</a></li>
+          <li><a href="#faq" data-route="faq">FAQ</a></li>
+          <li><a href="#book" data-route="book">Book</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page home active" id="home" aria-labelledby="home-title">
+      <h1 id="home-title" class="sr-only">Wards Service Centre</h1>
+      <video id="heroVideo" autoplay muted loop playsinline>
+        <source src="MustangWards.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="home-overlay"></div>
+      <img id="heroLogo" class="hero-logo" src="Wards Service Centre logo design.png" alt="Wards Service Centre">
+    </section>
+
+    <section class="page services" id="services" aria-labelledby="services-title">
+      <div class="services-hero"><div class="container">
+        <h1 id="services-title">Our Services</h1>
+        <p class="services-intro">Trusted local mechanics delivering transparent advice and quality workmanship for Brisbane drivers. Book online and we will confirm your appointment quickly.</p>
+        <div class="reviews-wrap">
+          <h2>What Our Customers Say</h2>
+          <div class="review-grid">
+            <article class="review-card"><div class="review-top"><span class="review-name">Alex M.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Fast turnaround and honest communication. The team explained every item clearly and had us back on the road the same day.</p></article>
+            <article class="review-card"><div class="review-top"><span class="review-name">Priya T.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Friendly service from the front desk through to pickup. Pricing was fair and they completed the logbook service perfectly.</p></article>
+            <article class="review-card"><div class="review-top"><span class="review-name">Daniel R.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Booked in for battery and alternator issues. They diagnosed it quickly, fixed it right, and kept me updated throughout the day.</p></article>
+          </div>
+          <a href="#" class="review-btn">Leave Us a Google Review</a>
+        </div>
+      </div></div>
+
+      <div class="services-list"><div class="container">
+        <h2>Workshop Capabilities</h2>
+        <div class="services-grid">
+          <article class="service-card"><svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 5-3.4 8.6-7 10-3.6-1.4-7-5-7-10V6l7-3z"></path><path d="M9.5 12.2l1.8 1.8 3.2-3.3"></path></svg><h3>Safety Certificates</h3><p>COQ approved inspection station for reliable and compliant safety certificate checks.</p></article>
+          <article class="service-card"><svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 0-3 3V4z"></path><path d="M8 8h7M8 11h7M8 14h5"></path></svg><h3>Log Book Servicing</h3><p>Manufacturer-guided servicing that helps maintain your vehicle warranty and resale value.</p></article>
+          <article class="service-card"><svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="17" height="10" rx="2"></rect><path d="M20 10h1.8v4H20M7 10v4M5.5 12h3"></path></svg><h3>Batteries, Starter Motors & Alternators</h3><p>Electrical diagnosis, replacement, and installation for dependable starts every time.</p></article>
+          <article class="service-card"><svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 6a4 4 0 0 0 4.8 4.9L10 19.7a2 2 0 1 1-2.8-2.8L16 8.1A4 4 0 0 0 14 6z"></path><path d="M6 18l-1 1"></path></svg><h3>Suspension & CV Shafts</h3><p>Suspension repair and CV shaft servicing to improve handling, comfort, and safety.</p></article>
+          <article class="service-card"><svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 4v5M12 15v5M4 12h5M15 12h5"></path></svg><h3>Tyres & Balancing</h3><p>Tyre fitment, balancing, and advice to maximise grip, wear life, and ride quality.</p></article>
+          <article class="service-card"><svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3s5 5.5 5 9a5 5 0 1 1-10 0c0-3.5 5-9 5-9z"></path><path d="M9.5 13.5a2.6 2.6 0 0 0 2.5 2"></path></svg><h3>Coolant, Brake Fluid & Radiators</h3><p>Fluid flushes and radiator services to help protect your engine and braking systems.</p></article>
+          <article class="service-card"><svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14l1.6-4.5A2 2 0 0 1 7.5 8h9a2 2 0 0 1 1.9 1.5L20 14"></path><path d="M3 14h18v4H3z"></path><circle cx="7" cy="18" r="1.7"></circle><circle cx="17" cy="18" r="1.7"></circle></svg><h3>We Sell Cars</h3><p>Quality used vehicles prepared by our workshop team and ready for your next drive.</p></article>
+        </div>
+      </div></div>
+    </section>
+
+    <section class="page faq" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <h1 id="faq-title">Frequently Asked Questions</h1>
+        <div class="faq-list">
+          <details class="faq-item"><summary>What is included in a safety certificate inspection?</summary><div class="faq-answer">A safety certificate inspection checks critical roadworthy components such as tyres, brakes, steering, suspension, lights, windscreen, and body condition to ensure the vehicle meets Queensland safety standards.</div></details>
+          <details class="faq-item"><summary>Why is logbook servicing important?</summary><div class="faq-answer">Logbook servicing follows the manufacturer schedule, helps protect your warranty, catches wear issues early, and keeps your vehicle running efficiently.</div></details>
+          <details class="faq-item"><summary>How often should I have my car serviced?</summary><div class="faq-answer">Most vehicles should be serviced every 10,000 km or every 6 months, whichever comes first. Always check your owner manual for exact intervals.</div></details>
+          <details class="faq-item"><summary>Do you service all makes and models of vehicles?</summary><div class="faq-answer">Yes. We service a wide range of makes and models, including petrol and diesel vehicles. Contact us with your vehicle details and we can confirm availability.</div></details>
+          <details class="faq-item"><summary>How long does a standard service take?</summary><div class="faq-answer">A standard service is usually completed within a few hours, depending on vehicle type and condition. We will provide a realistic timeframe at booking.</div></details>
+          <details class="faq-item"><summary>Do you offer a warranty on your repairs?</summary><div class="faq-answer">Yes. We stand behind our workmanship and parts. Specific warranty terms may vary by repair type and parts supplier.</div></details>
+          <details class="faq-item"><summary>What payment methods do you accept?</summary><div class="faq-answer">We accept major cards, EFTPOS, and cash. If you need another option, ask our team when booking.</div></details>
+          <details class="faq-item"><summary>Can I wait at the workshop while my car is being serviced?</summary><div class="faq-answer">Yes, short services can often be waited on. For larger jobs we recommend drop-off and we can call when your vehicle is ready.</div></details>
+          <details class="faq-item"><summary>What should I do if my car breaks down and I need emergency assistance?</summary><div class="faq-answer">Move to a safe location if possible, turn on hazard lights, and contact roadside assistance. Then submit a booking enquiry and we can guide your next steps.</div></details>
+        </div>
+      </div>
+      <div class="faq-contact"><div class="container"><p>Have more questions? Send us your details through the booking form and our team will follow up.</p><a href="#book">Go to Booking</a></div></div>
+    </section>
+
+    <section class="page book" id="book" aria-labelledby="book-title">
+      <div class="container">
+        <h1 id="book-title">Book a Service</h1>
+        <p class="book-subheading">Fill in the form below and we will be in touch to confirm your booking.</p>
+        <p class="book-subheading">Prefer to call? Reach us on <a href="tel:0738692222">07 3869 2222</a>.</p>
+
+        <section class="availability-card" aria-labelledby="availability-title">
+          <h2 id="availability-title">Check Booking Availability</h2>
+          <p>Select a preferred date and we will check whether the workshop has capacity.</p>
+          <form id="availabilityForm" class="availability-form">
+            <div><label for="preferredDate">Preferred Date</label><input type="date" id="preferredDate" name="preferredDate" required></div>
+            <button type="submit">Check Date</button>
+          </form>
+          <p id="availabilityStatus" class="availability-status" aria-live="polite"></p>
+        </section>
+
+        <form id="bookingForm" class="booking-form">
+          <div><label for="fullName">Full Name</label><input type="text" id="fullName" name="fullName" required></div>
+          <div><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" required></div>
+          <div><label for="email">Email Address</label><input type="email" id="email" name="email" required></div>
+          <div><label for="registration">Registration</label><input type="text" id="registration" name="registration" required></div>
+          <div><label for="serviceRequired">Service Required</label><input type="text" id="serviceRequired" name="serviceRequired" required></div>
+          <div><label for="additionalNotes">Additional Notes</label><textarea id="additionalNotes" name="additionalNotes"></textarea></div>
+          <button type="submit">Request Booking</button>
+          <p id="formStatus" class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <img class="footer-logo" src="Wards Service Centre logo design.png" alt="Wards Service Centre logo">
+      <p class="tagline">Keeping Brisbane Moving</p>
+      <nav class="footer-nav" aria-label="Footer links"><a href="#home">Home</a><a href="#services">Services</a><a href="#faq">FAQ</a><a href="#book">Book</a></nav>
+      <p class="copyright">© 2026 Wards Service Centre. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const GOOGLE_SHEET_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+    const GOOGLE_AVAILABILITY_URL = "YOUR_GOOGLE_APPS_SCRIPT_AVAILABILITY_URL_HERE";
+
+    const pages = document.querySelectorAll(".page");
+    const navLinks = document.querySelectorAll("[data-route]");
+    const navMenu = document.getElementById("navMenu");
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const heroVideo = document.getElementById("heroVideo");
+    const heroLogo = document.getElementById("heroLogo");
+    const availabilityForm = document.getElementById("availabilityForm");
+    const availabilityStatus = document.getElementById("availabilityStatus");
+    const bookingForm = document.getElementById("bookingForm");
+    const formStatus = document.getElementById("formStatus");
+
+    let logoShown = false;
+    let logoTimerId = null;
+
+    function showHeroLogo() {
+      if (logoShown) return;
+      logoShown = true;
+      if (logoTimerId) clearTimeout(logoTimerId);
+      heroLogo.classList.add("logo-reveal");
+    }
+
+    function scheduleHeroLogoReveal() {
+      if (logoShown || logoTimerId) return;
+      const seconds = heroVideo.duration && Number.isFinite(heroVideo.duration)
+        ? Math.max(2, Math.min(heroVideo.duration - 0.2, 6))
+        : 4;
+      logoTimerId = setTimeout(showHeroLogo, Math.round(seconds * 1000));
+    }
+
+    function router() {
+      const route = (location.hash || "#home").replace("#", "");
+      pages.forEach((page) => page.classList.toggle("active", page.id === route));
+      navLinks.forEach((link) => link.classList.toggle("active", link.dataset.route === route));
+      navMenu.classList.remove("nav-open");
+      hamburgerBtn.setAttribute("aria-expanded", "false");
+      if (!document.getElementById(route)) location.hash = "#home";
+      if (route === "home") scheduleHeroLogoReveal();
+    }
+
+    hamburgerBtn.addEventListener("click", () => {
+      const opened = navMenu.classList.toggle("nav-open");
+      hamburgerBtn.setAttribute("aria-expanded", String(opened));
+    });
+
+    heroVideo.addEventListener("loadedmetadata", scheduleHeroLogoReveal);
+    heroVideo.addEventListener("ended", showHeroLogo);
+    heroVideo.addEventListener("timeupdate", () => {
+      if (!heroVideo.duration) return;
+      if (heroVideo.currentTime >= heroVideo.duration - 0.3) showHeroLogo();
+    });
+    scheduleHeroLogoReveal();
+
+    availabilityForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const preferredDate = availabilityForm.preferredDate.value;
+      if (!preferredDate) {
+        availabilityStatus.textContent = "Please choose a date first.";
+        return;
+      }
+      availabilityStatus.textContent = "Checking availability...";
+      try {
+        if (GOOGLE_AVAILABILITY_URL === "YOUR_GOOGLE_APPS_SCRIPT_AVAILABILITY_URL_HERE") {
+          await new Promise((resolve) => setTimeout(resolve, 400));
+          availabilityStatus.textContent = "Availability check is ready. Add your Apps Script URL to enable live capacity data.";
+          return;
+        }
+        const response = await fetch(`${GOOGLE_AVAILABILITY_URL}?date=${encodeURIComponent(preferredDate)}`);
+        if (!response.ok) throw new Error("Availability request failed");
+        const result = await response.json();
+        if (result.available === true) {
+          availabilityStatus.textContent = result.message || `Good news: ${preferredDate} currently has booking capacity.`;
+        } else {
+          availabilityStatus.textContent = result.message || `Sorry, ${preferredDate} is currently at capacity.`;
+        }
+      } catch (error) {
+        availabilityStatus.textContent = "Could not check live availability right now. Please submit a booking request below.";
+      }
+    });
+
+    bookingForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const payload = {
+        fullName: bookingForm.fullName.value.trim(),
+        phone: bookingForm.phone.value.trim(),
+        email: bookingForm.email.value.trim(),
+        registration: bookingForm.registration.value.trim(),
+        serviceRequired: bookingForm.serviceRequired.value.trim(),
+        additionalNotes: bookingForm.additionalNotes.value.trim()
+      };
+      try {
+        if (GOOGLE_SHEET_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+          await new Promise((resolve) => setTimeout(resolve, 400));
+        } else {
+          const response = await fetch(GOOGLE_SHEET_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          if (!response.ok) throw new Error("Request failed");
+        }
+        bookingForm.reset();
+        formStatus.textContent = "Thanks! We'll be in touch shortly to confirm your booking.";
+      } catch (error) {
+        formStatus.textContent = "Sorry, something went wrong. Please try again in a moment.";
+      }
+    });
+
+    window.addEventListener("hashchange", router);
+    window.addEventListener("DOMContentLoaded", router);
+  </script>
+
+  <!--
+  GOOGLE APPS SCRIPT - availability + booking example
+  const CAPACITY_LIMIT = 20;
+
+  function doGet(e) {
+    const dateQuery = (e.parameter.date || "").trim();
+    if (!dateQuery) {
+      return ContentService.createTextOutput(JSON.stringify({ available: false, message: "Date is required." }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const rows = sheet.getDataRange().getValues();
+    const target = new Date(dateQuery);
+    target.setHours(0, 0, 0, 0);
+
+    let count = 0;
+    for (let i = 1; i < rows.length; i++) {
+      const bookedDate = new Date(rows[i][0]);
+      if (!isNaN(bookedDate.getTime())) {
+        bookedDate.setHours(0, 0, 0, 0);
+        if (bookedDate.getTime() === target.getTime()) count++;
+      }
+    }
+
+    const available = count < CAPACITY_LIMIT;
+    return ContentService.createTextOutput(JSON.stringify({
+      available: available,
+      booked: count,
+      capacity: CAPACITY_LIMIT,
+      message: available ? "This date currently has availability." : "This date is at capacity."
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  function doPost(e) {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data = JSON.parse(e.postData.contents);
+    sheet.appendRow([
+      new Date(),
+      data.fullName,
+      data.phone,
+      data.email,
+      data.registration,
+      data.serviceRequired,
+      data.additionalNotes
+    ]);
+    return ContentService.createTextOutput("OK");
+  }
+  -->
+</body>
+</html>

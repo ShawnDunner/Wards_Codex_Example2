@@ -1,0 +1,87 @@
+Could you use the frontend-design plugin to assist you to build a four-page website for Wards Service Centre, an automotive mechanic workshop. Make sure that the website is responsive for mobile and tablet users. make a new git repository for this project. I would like you then to make clean commit messages, save them locally and then push them to GitHub so that we always have a saved version of the project. That was it is easy for us to revert back in case we make any changes. So set up a GitHub repository, male this repo private so that only you and I have access and configure everything, and just use GitHub for the rest of this project
+Use the following specifications exactly:
+BRAND COLOURS
+* Deep Grape Purple: #3B2B5B — backgrounds, nav
+* Bright Tangerine: #F78E1E — accents, buttons, highlights
+* Cloud White: #EBEBEB — fascia, white text
+* Dark Charcoal: #333333 — body text, lettering
+Use the Wards_Brand_Colours_v2 excel sheet (attached) as your guidance.
+GLOBAL
+* Single HTML file with embedded CSS and JS using client-side routing to simulate four pages
+* Fully responsive, mobile first
+* Smooth scroll behaviour throughout
+* All animations using CSS transitions only, no heavy libraries
+* Google Fonts: use "Oswald" for headings and "Open Sans" for body text
+* Phone number displayed everywhere as 07 3869 2222
+NAVIGATION
+* Sticky top nav bar in Deep Grape Purple
+* Wards logo image Wards_Background_Removed.jpg on the left, small size
+* Four nav links: Home | Services | FAQ | Book
+* Nav links in Cloud White, hover colour Bright Tangerine
+* Active page link underlined in Bright Tangerine
+* Hamburger menu on mobile
+
+PAGE 1 — HOME
+* This page contains only three things: the hero video, the logo animation, and the navigation bar. No other content, sections or text below the fold.
+* Full viewport height full-width background video MustangWards.mp4 (attached), autoplaying, muted, looping, object-fit cover
+* Phone number 07 3869 2222 overlaid in Bright Tangerine bold large text, centred over the video
+* At the end of the video the Wards logo image Wards Service Centre logo design.png (attached) animates into view — scales up from centre with a smooth fade-in effect, centred over the video
+* No other content on this page
+
+PAGE 2 — SERVICES
+* Full page, section background alternates Dark Charcoal and Deep Grape Purple per section
+* Page heading: "Our Services" in Bright Tangerine using Oswald font
+* Display the following services as a responsive card grid. Each card in Deep Grape Purple with Bright Tangerine icon and Cloud White text: 
+o Safety Certificates — COQ approved inspection station
+o Log Book Servicing — maintain your warranty
+o Batteries, Starter Motors & Alternators
+o Suspension & CV Shafts
+o Tyres & Balancing
+o Coolant Flush, Brake Fluid Flush & Radiators
+o We sell cars
+* Above the service cards include a Google Reviews section 
+o Section heading: "What Our Customers Say" in Bright Tangerine
+o Display 3 placeholder review cards in Deep Grape Purple with Cloud White text and Bright Tangerine star ratings
+o Each card has: reviewer name, star rating (5 stars), review text placeholder, and a Google review badge
+o Below the cards include a Bright Tangerine button: "Leave Us a Google Review" linking to # as a placeholder
+o Add a code comment: // Replace placeholder reviews and Google Review link with your actual Google Business Profile review URL
+
+PAGE 3 — FAQ
+* Section background: Cloud White
+* Page heading: "Frequently Asked Questions" in Deep Grape Purple using Oswald font
+* Accordion-style expandable FAQ items in Dark Charcoal text with Bright Tangerine expand/collapse icons: 
+o Q: What is included in a safety certificate inspection?
+o A: A safety certificate inspection checks various aspects of your vehicle, including brakes, tyres, steering, suspension, and lights, to ensure it meets road safety standards.
+o Q: Why is logbook servicing important?
+o A: Logbook servicing is essential to maintain your vehicle's warranty and ensure it meets the manufacturer's specifications. Regular servicing keeps your car running efficiently and prolongs its lifespan.
+* Below the FAQ include a contact strip in Deep Grape Purple: "Have more questions? Call us on 07 3869 2222" with a Bright Tangerine click-to-call button
+
+PAGE 4 — BOOK
+* Section background: Deep Grape Purple
+* Page heading: "Book a Service" in Bright Tangerine using Oswald font
+* Subheading in Cloud White: "Fill in the form below and we will be in touch to confirm your booking"
+* Booking form with the following fields only: 
+o Full Name (text input)
+o Phone Number (tel input)
+o Email Address (email input)
+o Registration (text input)
+o Service Required (free text textarea)
+o Additional Notes (free text textarea)
+* On form submit POST the form data as JSON to the Google Apps Script endpoint. Add a placeholder constant at the top of the JS: const GOOGLE_SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'
+* Show a success message in Bright Tangerine after submission: "Thanks! We'll be in touch shortly to confirm your booking."
+* All form inputs: Dark Charcoal background, Cloud White text, Bright Tangerine focus border, rounded corners
+* Submit button labelled "Request Booking" in Bright Tangerine background with Dark Charcoal bold text, full width on mobile
+* Include a Google Apps Script snippet in the code comments that the mechanic can paste into Google Sheets to receive bookings as rows with columns: Timestamp | Full Name | Phone | Email | Registration | Service Required | Additional Notes
+
+FOOTER — appears on all pages
+* Deep Grape Purple background
+* Wards logo centred, small
+* Tagline: "Keeping Brisbane Moving" in Cloud White
+* Phone: 07 3869 2222 in Bright Tangerine, click-to-call link
+* Copyright line in Cloud White muted text
+* Footer nav links: Home | Services | FAQ | Book in Cloud White
+
+ASSETS TO PLACE IN THE SAME FOLDER AS THE HTML FILE:
+* wards_hero.mp4 — the hero background video
+* Wards Service Centre logo design.png — the logo image with background already removed
+
