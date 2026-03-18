@@ -28,6 +28,7 @@
     .brand { display: inline-flex; align-items: center; gap: 8px; color: var(--cloud-white); text-decoration: none; font-family: "Oswald", sans-serif; letter-spacing: 0.03em; }
     .brand-name { font-size: 1.2rem; text-transform: uppercase; }
     .brand-name strong { color: var(--bright-tangerine); }
+    .brand-location { color: var(--bright-tangerine); font-family: "Oswald", sans-serif; letter-spacing: 0.03em; white-space: nowrap; }
     .brand-tagline { font-family: "Caveat", cursive; font-size: 1.45rem; color: var(--cloud-white); margin-left: 8px; transform: translateY(1px); white-space: nowrap; }
 
     .nav-toggle { display: none; border: 2px solid transparent; border-radius: 6px; background: transparent; color: var(--cloud-white); font-size: 1.8rem; line-height: 1; padding: 6px 10px; cursor: pointer; }
@@ -145,7 +146,7 @@
     @media (max-width: 768px) {
       .site-nav .container { min-height: 76px; }
       .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
-      .brand-tagline { display: none; }
+    .brand-tagline { display: none; }
       .nav-menu { position: absolute; top: 100%; left: 0; right: 0; background: var(--deep-grape-purple); border-top: 1px solid rgba(220, 212, 210, 0.2); display: none; }
       .nav-menu.nav-open { display: block; }
       .nav-links { flex-direction: column; align-items: flex-start; gap: 14px; padding: 16px 4%; }
@@ -168,7 +169,8 @@
     <div class="container">
       <a class="brand" href="#home" aria-label="Wards Service Centre home">
         <span class="brand-name"><strong>WARDS</strong> SERVICE CENTRE</span>
-        <span class="brand-tagline">- We'll get you on the road again</span>
+        <span class="brand-location">- MECHANICS BRACKEN RIDGE -</span>
+        <span class="brand-tagline">We'll get you on the road again</span>
       </a>
       <button class="nav-toggle" id="hamburgerBtn" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">☰</button>
       <nav class="nav-menu" id="navMenu" aria-label="Main navigation">
@@ -461,6 +463,8 @@
   -->
 </body>
 </html>
+
+
 
 
 
