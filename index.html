@@ -58,16 +58,16 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      width: clamp(24px, 4.4vw, 52px);
+      width: clamp(36px, 6.2vw, 88px);
       pointer-events: none;
       opacity: 1;
-      z-index: 0;
+      z-index: 4;
       background-color: transparent;
       background-image:
-        linear-gradient(45deg, rgba(255, 255, 255, 0.42) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.42) 75%),
-        linear-gradient(45deg, rgba(255, 255, 255, 0.42) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.42) 75%);
-      background-size: 18px 18px;
-      background-position: 0 0, 9px 9px;
+        linear-gradient(45deg, rgba(255, 255, 255, 0.58) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.58) 75%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.58) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.58) 75%);
+      background-size: 22px 22px;
+      background-position: 0 0, 11px 11px;
     }
     .services::before, .faq::before, .book::before { left: 0; }
     .services::after, .faq::after, .book::after { right: 0; }
@@ -78,8 +78,11 @@
     .services-list,
     .faq-contact { position: relative; z-index: 1; }
     .reviews-wrap { margin-top: 34px; }
-    .review-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 20px; }
-    .review-card { background: var(--deep-grape-purple); border-radius: 12px; padding: 20px; box-shadow: 0 8px 26px rgba(34, 30, 27, 0.2); }
+    .review-ticker { margin-top: 20px; overflow: hidden; }
+    .review-track { display: flex; gap: 18px; width: max-content; animation: reviewTicker 44s linear infinite; }
+    .review-ticker:hover .review-track { animation-play-state: paused; }
+    @keyframes reviewTicker { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 9px)); } }
+    .review-card { background: var(--deep-grape-purple); border-radius: 12px; padding: 20px; box-shadow: 0 8px 26px rgba(34, 30, 27, 0.2); flex: 0 0 min(360px, 82vw); }
     .review-top { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; align-items: center; }
     .review-name { font-weight: 700; }
     .review-badge { color: var(--bright-tangerine); font-weight: 700; border: 1px solid rgba(39, 31, 55, 0.5); border-radius: 999px; font-size: 0.82rem; padding: 3px 10px; }
@@ -148,6 +151,8 @@
       .home video { transform: scale(1.08); object-position: 52% 56%; }
       .hero-logo { top: 15%; width: min(620px, 86vw); }
       .services-hero, .services-list, .faq, .book { padding-top: 54px; }
+      .review-card { flex-basis: min(300px, 88vw); }
+      .review-track { animation-duration: 56s; }
       .availability-form { grid-template-columns: 1fr; }
       .availability-form button, .booking-form button { width: 100%; }
     }
@@ -193,10 +198,25 @@
         <p class="services-intro">Trusted local mechanics delivering transparent advice and quality workmanship for Brisbane drivers. Book online and we will confirm your appointment quickly.</p>
         <div class="reviews-wrap">
           <h2>What Our Customers Say</h2>
-          <div class="review-grid">
-            <article class="review-card"><div class="review-top"><span class="review-name">Alex M.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Fast turnaround and honest communication. The team explained every item clearly and had us back on the road the same day.</p></article>
-            <article class="review-card"><div class="review-top"><span class="review-name">Priya T.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Friendly service from the front desk through to pickup. Pricing was fair and they completed the logbook service perfectly.</p></article>
-            <article class="review-card"><div class="review-top"><span class="review-name">Daniel R.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Booked in for battery and alternator issues. They diagnosed it quickly, fixed it right, and kept me updated throughout the day.</p></article>
+          <div class="review-ticker">
+            <div class="review-track">
+              <article class="review-card"><div class="review-top"><span class="review-name">Alex M.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Fast turnaround and honest communication. The team explained every item clearly and had us back on the road the same day.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Priya T.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Friendly service from the front desk through to pickup. Pricing was fair and they completed the logbook service perfectly.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Daniel R.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Booked in for battery and alternator issues. They diagnosed it quickly, fixed it right, and kept me updated throughout the day.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Chloe S.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Great service and very clear pricing before work started. Super easy booking process and quick turnaround.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Marcus L.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>They fixed a persistent suspension noise another workshop missed. Car now drives smoothly and quietly.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Emma K.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Very professional team and updates throughout the day. Loved that everything was explained in plain language.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Noah P.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Needed urgent battery replacement and they fit me in straight away. Back on the road in under two hours.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Sophie J.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Honest mechanics, no upselling, and excellent workmanship. I now bring both family cars here.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Alex M.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Fast turnaround and honest communication. The team explained every item clearly and had us back on the road the same day.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Priya T.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Friendly service from the front desk through to pickup. Pricing was fair and they completed the logbook service perfectly.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Daniel R.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Booked in for battery and alternator issues. They diagnosed it quickly, fixed it right, and kept me updated throughout the day.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Chloe S.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Great service and very clear pricing before work started. Super easy booking process and quick turnaround.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Marcus L.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>They fixed a persistent suspension noise another workshop missed. Car now drives smoothly and quietly.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Emma K.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Very professional team and updates throughout the day. Loved that everything was explained in plain language.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Noah P.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Needed urgent battery replacement and they fit me in straight away. Back on the road in under two hours.</p></article>
+              <article class="review-card"><div class="review-top"><span class="review-name">Sophie J.</span><span class="review-badge">Google G</span></div><div class="stars">★★★★★</div><p>Honest mechanics, no upselling, and excellent workmanship. I now bring both family cars here.</p></article>
+            </div>
           </div>
           <a href="#" class="review-btn">Leave Us a Google Review</a>
         </div>
@@ -439,6 +459,9 @@
   -->
 </body>
 </html>
+
+
+
 
 
 
